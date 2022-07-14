@@ -5,7 +5,7 @@ drawCoordinates(); // 축 초기화
 
 // x, y축을 그리는 함수
 function drawCoordinates() {
-    ctx.setTransform(1, 0, 0, -1, 250, 250); // 선형변환 시1발
+    ctx.setTransform(1, 0, 0, -1, 250, 250); // 선형변환 사용, 기본값
     // 축 스타일: 검은색, 굵기 1px
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
