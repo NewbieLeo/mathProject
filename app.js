@@ -91,7 +91,7 @@ function drawQuadraticFunction() {
 
     console.clear();
     console.log(`판별식의 값: ${D}`);
-    console.log(`근: ${root.map(x => x.toFixed(3)).join(", ")}`);
+    console.log(`근: ${root.length == 0 ? "없음" : root.map(x => x.toFixed(3)).join(", ")}`);
     console.log(`꼭짓점: (${vertex.map(x => x.toFixed(3)).join(", ")})`);
     console.log(`y절편: ${c}`);
 }
