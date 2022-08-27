@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Science Project Prototype</title>
+        <link rel="stylesheet" href="style.css"/>
+        <script defer src="app.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <br/>
+
+        <div id="select">
+            <button id="linear" onclick="select('linear'); degree=1;">
+            <label for="linear">1차함수</label>
+            <button id="quadratic" onclick="select('quadratic'); degree=2;">
+            <label for="quadratic">2차함수</label>
+        </div>
+
+        <!--  Linear Function Part -->
+        <div id="linear-input" style="display: none;">
+            <input id="linear-coff" type="number">
+            <span>x+(</span>
+            <input id="linear-const" type="number">
+            <span>)</span>
+        </div>
+
+        <!-- Quadratic Function Part -->
+        <div id="quadratic-input" style="display: none;">
+            <input id="quadratic-coff2" type="number">
+            <span>x<sup>2</sup>+(</span>
+            <input id="quadratic-coff1" type="number">
+            <span>) x+(</span>
+            <input id="quadratic-const" type="number">
+            <span>)</span>
+        </div>
+        <button onclick="main()">Draw!</button>
+
+    </body>
+</html>
