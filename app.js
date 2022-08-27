@@ -53,7 +53,7 @@ function drawLinearFunction() {
 
 function drawQuadraticFunction() {
     ctx.clearRect(-250, -250, 500, 500); // 화면 초기화
-    drawCoordinates()
+    drawCoordinates();
 
     a = Number(document.querySelector("#quadratic-coff2").value);
     b = Number(document.querySelector("#quadratic-coff1").value);
@@ -69,27 +69,47 @@ function drawQuadraticFunction() {
         root = [];
     }
     vertex = [-b / (2*a), -D / (4*a)];
-    points = [...root, ...vertex, c] // c는 y절편
+    points = [...root, ...vertex, c]; // c는 y절편
+
     
     ctx.strokeStyle = "red";
-
+    
     // 배율 설정
     pointsMax = Math.max(
         ...points.map(x => Math.abs(x))
         );
     magn = (pointsMax == 0) ? 150 : (150 / pointsMax); // ax^2 꼴 조정
+        
+    xAxis = vertex[0];
+    if (xAxis == 0) {
+        if (pointsMax == 0) {
+            graphRange = [-Math.sqrt(250/a**2), Math.sqrt(250/a**2)];
+        } else {
+            graphRange = [-pointsMax/0.6, pointsMax/0.6];
+        }
+    } else if (xAxis < 0) {
+        graphRange = [2*xAxis - pointsMax/0.6, pointsMax/0.6];
+    } else if (xAxis > 0) {
+        graphRange = [-pointsMax/0.6, pointsMax/0.6+2*xAxis];
+    }
 
     ctx.lineWidth = 3 / magn; // 그래프 굵기 균등화
     ctx.setTransform(magn, 0, 0, -magn, 250, 250); // 배율 조정
     
     ctx.beginPath();
-    ctx.moveTo(-250, a * 62_500 - b * 250 + c); // 그래프의 시작점
-    for (let x=-250; x<=250; x += 0.1) { // 매끄러운 그래핑을 위해 간격 adjust (1 -> 0.1)
-        ctx.lineTo(x, a * x ** 2 + b * x + c);
-    }
+    ctx.moveTo(graphRange[0], getValue(graphRange[0]))
+    ctx.quadraticCurveTo(
+        xAxis, 2*vertex[1]-getValue(graphRange[0]),
+        graphRange[1], getValue(graphRange[1])
+    );
     ctx.stroke();
 
     console.clear();
+    console.log(
+        graphRange[0], getValue(graphRange[0]),
+        xAxis, getValue(xAxis),
+        graphRange[1], getValue(graphRange[1])
+    )
     console.log(`판별식의 값: ${D}`);
     console.log(`근: ${root.length == 0 ? "없음" : root.map(x => x.toFixed(3)).join(", ")}`);
     console.log(`꼭짓점: (${vertex.map(x => x.toFixed(3)).join(", ")})`);
@@ -119,3 +139,7 @@ function select(degree) {
             break;
     }
 }
+
+function getValue(x) {
+    return a * x ** 2 + b * x + c
+} 
